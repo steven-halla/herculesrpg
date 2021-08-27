@@ -56,16 +56,51 @@ battleThesus();
 function getEnemyAttack(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   const item = array[randomIndex];
-  console.log(item);
+  // console.log(item);
   return item;
 }
 
 function thesusAttacks() {
   const grabAttack = thesus["attacks"];
-   let attack = getEnemyAttack(grabAttack);
+   let attackState = getEnemyAttack(grabAttack);
   console.log("you were attacked");
-  // console.log(attack);
+  console.log(attackState);
   herculesAttacks();
-  return attack;
+  return attackState;
 }
+
 thesusAttacks()
+
+function battleLearny() {
+  alert(" The hydra, Learny, is in your way. Time to put him out of your misery. ")
+}
+
+battleLearny();
+
+function learnyAttacks() {
+  const grabAttack = learny["attacks"];
+  let attackState = getEnemyAttack(grabAttack);
+  console.log("you were attacked");
+  console.log(attackState);
+  herculesAttacks();
+  return attackState;
+}
+
+learnyAttacks();
+
+function battleHades() {
+  alert(" The god of the underworld, hades, is blocking your way, out of hades. ")
+}
+
+battleHades();
+
+function hadesAttacks() {
+  const grabAttack = hades["attacks"];
+  let attackState = getEnemyAttack(grabAttack);
+  console.log("you were attacked");
+  console.log(attackState);
+  herculesAttacks();
+  return attackState;
+}
+
+hadesAttacks()
