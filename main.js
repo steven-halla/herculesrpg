@@ -1,36 +1,72 @@
 function welcomeAlert() {
   alert("Time for some training. Follow the instructions and use lower case for all commands.");
 }
+
 welcomeAlert();
 
+const swordSlash = {
+  name: "Sword Slash",
+  damage: 2
+};
+const falcoPunch = {
+  name: "Sword Slash",
+  damage: 3
+};
+const hydraHeadSmash = {
+  name: "Head Smash",
+  damage: 2
+};
+const hydraFireBreath = {
+  name: "Fire Breath",
+  damage: 3
+};
+
+function getTotalDamage(hero, attack) {
+  return hero.attackPower * attack.damage;
+}
+
 const hercules = {
-  "heroHealth" : 5,
-  "attackPower" : 5,
-  "attacks" : ["Sword Slash" , "Falco Punch"]
+  hp: 25,
+  attackPower: 5,
+  attacks: [swordSlash, falcoPunch]
 };
 
 const learny = {
-  "enemyHealth": 10,
-  "attackPower" : 5,
-  "attacks" : ["Head Smash", "Fire Breath"]
+  name: "Learny",
+  hp: 100,
+  attackPower: 5,
+  attacks: ["Head Smash", "Fire Breath"]
 };
 
-const heroDamage = {
-
-
+const hydraDamage = {
+  "Head Smash": learny.attackPower * 2,
+  "Fire Breath": learny.attackPower * 3
 }
 
+function getAttackFromCommand(input) {
+  switch (input) {
+    case 's':
+    case 'sword slash':
+      return swordSlash;
 
-// function herculesAttack() {
-//   let input = prompt("type in 's' for 'Sword Slash' or 'f' for 'Falco Punch'");
-//   if (input === 's') {
-//     let heroDamage = hercules.attackPower * 2;
-//     console.log("You used" + " " + hercules.attacks[0] + " " +  "and dealt" + " " + heroDamage + " " + "damage.");
-//   } else if (input === 'f') {
-//     let heroDamage =  hercules.attackPower * 3;
-//     console.log("You used" + " " + hercules.attacks[1] +  " " + "and dealt" + " " + heroDamage + " "  + "damage.");
-//   } else(herculesAttack());
-// }
+    case 'f':
+    case 'falco punch':
+      return falcoPunch;
+
+    default:
+      return herculesAttack();
+  }
+}
+
+function herculesAttack(enemy) {
+  const input = prompt("type in 's' for 'Sword Slash' or 'f' for 'Falco Punch'");
+  const attack = getAttackFromCommand(input);
+  const damage = getTotalDamage(hercules, attack);
+  enemy.hp -= damage;
+
+  console.log("Hercules used " + attack.name + " and dealt " + attack.damage + " damage.");
+  console.log(enemy.name + " has " + enemy.hp + "hp.");
+}
 
 function getEnemyAttack(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -39,24 +75,47 @@ function getEnemyAttack(array) {
 }
 
 function learnyAttack() {
-  const grabAttack = learny["attacks"];
-   let attackState = getEnemyAttack(grabAttack);
-   if (attackState === "Head Smash" ) {
-     let hydraDamage = learny.attackPower * 2;
-     console.log("Learny used" + " " +  attackState + " " + "and dealt" + " " + hydraDamage + " "  + "damage.");
-   } else if(attackState === "Fire Breath") {
-     let hydraDamage = learny.attackPower * 3;
-     console.log("Learny used" + " " +  attackState + " " + "and dealt" + " " + hydraDamage + " " + "damage.");
-
-   }
-  return attackState;
+  let attackState = getEnemyAttack(learny.attacks);
+  console.log("Learny used " + attackState + " and dealt " + hydraDamage[attackState] + " damage.");
+  hercules.hp -= hydraDamage[attackState];
 }
 
+let isGameOver = false;
+function learnyBattle() {
+  while (!isGameOver) {
+    herculesAttack(learny);
 
+    learnyAttack();
+    hercules.hp -= hydraDamage;
+    console.log(hercules.hp);
 
+    if (hercules.hp <= 0 || learny.hp <= 0) {
+      learnyBattleOver();
+    }
+  }
+}
 
+learnyBattle();
 
+function learnyBattleOver() {
+  console.log("You escaped the battle loop");
+  isGameOver = true;
+}
 
+// function battleLearny() {
+//
+//   // while ( hercules.heroHealth > 1 && learny.enemyHealth > 1) {
+//   {
+//     if(hercules.heroHealth > 4) {
+//       hercules.heroHealth = 1;
+//     }
+//     console.log(hercules.heroHealth);
+//     // herculesAttack();
+//     // learnyAttack();
+//   }
+// }
+//
+// battleLearny();
 
 
 function gameOver() {
@@ -65,4 +124,8 @@ function gameOver() {
 
 function deadHydra() {
   console.log("you won the game, for now")
+}
+
+function damageTaken() {
+
 }
