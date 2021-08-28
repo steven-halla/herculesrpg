@@ -6,7 +6,7 @@ welcomeAlert();
 
 const swordSlash = {
   name: "Sword Slash",
-  damage: 2
+  damage: 1
 };
 const falcoPunch = {
   name: "Sword Slash",
@@ -25,15 +25,19 @@ function getTotalDamage(hero, attack) {
   return hero.attackPower * attack.damage;
 }
 
+// function getLearnyTotalDamage(hydra, attack) {
+//   return laerny.attackPower * attack.damage;
+// }
+
 const hercules = {
-  hp: 25,
+  hp: 30,
   attackPower: 5,
   attacks: [swordSlash, falcoPunch]
 };
 
 const learny = {
   name: "Learny",
-  hp: 100,
+  hp: 30,
   attackPower: 5,
   attacks: ["Head Smash", "Fire Breath"]
 };
@@ -78,16 +82,15 @@ function learnyAttack() {
   let attackState = getEnemyAttack(learny.attacks);
   console.log("Learny used " + attackState + " and dealt " + hydraDamage[attackState] + " damage.");
   hercules.hp -= hydraDamage[attackState];
+  console.log("hercules has " + hercules.hp);
 }
 
-let isGameOver = false;
+let isLearnyBattleOver = false;
 function learnyBattle() {
-  while (!isGameOver) {
+  while (!isLearnyBattleOver) {
     herculesAttack(learny);
 
-    learnyAttack();
-    hercules.hp -= hydraDamage;
-    console.log(hercules.hp);
+    learnyAttack(hercules);
 
     if (hercules.hp <= 0 || learny.hp <= 0) {
       learnyBattleOver();
@@ -99,33 +102,14 @@ learnyBattle();
 
 function learnyBattleOver() {
   console.log("You escaped the battle loop");
-  isGameOver = true;
+  isLearnyBattleOver = true;
 }
 
-// function battleLearny() {
-//
-//   // while ( hercules.heroHealth > 1 && learny.enemyHealth > 1) {
-//   {
-//     if(hercules.heroHealth > 4) {
-//       hercules.heroHealth = 1;
-//     }
-//     console.log(hercules.heroHealth);
-//     // herculesAttack();
-//     // learnyAttack();
-//   }
-// }
-//
-// battleLearny();
+console.log("game on");
 
 
-function gameOver() {
-  console.log("you are dead");
+function thesusAlert() {
+  alert("Brave hero, it's time to face your next foe, the mighty hero Thesus.");
 }
 
-function deadHydra() {
-  console.log("you won the game, for now")
-}
-
-function damageTaken() {
-
-}
+thesusAlert();
