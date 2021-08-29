@@ -1,21 +1,21 @@
-function welcomeAlert() {
-  alert("Time for some training. Follow the instructions and use lower case for all commands.");
-}
-
-welcomeAlert();
+runGame();
+function runGame() {
 
 const swordSlash = {
   name: "Sword Slash",
   damage: 10
 };
+
 const falcoPunch = {
   name: "Falco Punch",
   damage: 3
 };
+
 const hydraHeadSmash = {
   name: "Head Smash",
   damage: 2
 };
+
 const hydraFireBreath = {
   name: "Fire Breath",
   damage: 3
@@ -25,19 +25,30 @@ const lanceThrust = {
   name: "Lance Thrust",
   damage: 2
 };
+
 const divineFavor = {
   name: "Divine Favor",
   damage: 3
 };
 
+const laserBlast = {
+  name : "Laser Blast",
+  damage: 4
+};
+
+const skullThrow = {
+  name: "Skull Throw",
+  damage: 5
+};
+
 function getTotalDamage(hero, attack) {
   return hero.attackPower * attack.damage;
-}
+};
 
 
 
 const hercules = {
-  hp: 30,
+  hp: 200,
   attackPower: 5,
   attacks: [swordSlash, falcoPunch]
 };
@@ -49,18 +60,19 @@ const learny = {
   attacks: [hydraHeadSmash, hydraFireBreath]
 };
 
-
 const thesus = {
   name: "Thesus",
   hp: 30,
   attackPower: 5,
   attacks: [lanceThrust, divineFavor]
-}
+};
 
-const thesusDamage = {
-  "Lance Thrust": thesus.attackPower * 2,
-  "Divine Favor" : thesus.attackPower * 3
-}
+const hades = {
+  name : "Hades",
+  hp: 50,
+  attackPower: 10,
+  attacks: [laserBlast, skullThrow]
+};
 
 function getAttackFromCommand(input) {
   switch (input) {
@@ -103,8 +115,6 @@ function enemyAttack(enemy) {
 
 }
 
-
-
 function battle(enemy) {
   while (true) {
 
@@ -118,29 +128,53 @@ function battle(enemy) {
     enemyAttack(enemy);
 
     if (hercules.hp <= 0 || enemy.hp <= 0) {
-      battleOver();
+      gameOver();
       return;
     }
   }
 }
 
-battle(thesus);
-
-function battleOver() {
-  console.log("You escaped the battle loop");
+function gameOver() {
+  deadAlert();
+  console.log("You have died, and you have gone back to the waiting room");
+  runGame();
 }
 
-console.log("game on");
+function battleOver() {
+  console.log("You won the battle!");
+}
+
+
+
+function welcomeAlert() {
+  alert("Time for some training. Follow the instructions and use lower case for all commands.");
+}
+
+function deadAlert() {
+  alert("You have died and must go back to the start of the game.");
+}
+
+function learnyAlert() {
+  alert("The Hydra, named 'learny' bars your way.Time to teach him a lesson");
+}
 
 
 function thesusAlert() {
   alert("Brave hero, it's time to face your next foe, the mighty hero Thesus.");
 }
 
-thesusAlert();
-
-function thesusAttack() {
-  let attackState = getEnemyAttack(thesus.attacks);
-  console.log("Thesus used " + attackState + " and dealt " + thesusDamage[attackState] + " damage ");
-  hercules.hp -= thesus
+function hadesAlert() {
+  alert("Hades, the king of the underworld, which is also named Hades, is here to stop you from leaving.")
 }
+
+  welcomeAlert();
+  learnyAlert();
+  battle(learny);
+  thesusAlert();
+  battle(thesus);
+  hadesAlert();
+  battle(hades);
+  console.log("Congrats on escaping Hades. Now it's time for more adventures!")
+}
+
+
