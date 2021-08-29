@@ -11,6 +11,11 @@ const falcoPunch = {
   damage: 3
 };
 
+const foolsAttack = {
+  name: "Clown Kick",
+  damage: 0
+}
+
 const hydraHeadSmash = {
   name: "Head Smash",
   damage: 2
@@ -48,7 +53,7 @@ function getTotalDamage(hero, attack) {
 const hercules = {
   hp: 200,
   attackPower: 5,
-  attacks: [swordSlash, falcoPunch]
+  attacks: [swordSlash, falcoPunch, foolsAttack]
 };
 
 const learny = {
@@ -72,7 +77,7 @@ const hades = {
   attacks: [laserBlast, skullThrow]
 };
 
-function getAttackFromCommand(input) {
+function getAttackFromCommand(input, enemy) {
   switch (input) {
     case 's':
     case 'sword slash':
@@ -83,7 +88,8 @@ function getAttackFromCommand(input) {
       return falcoPunch;
 
     default:
-      return herculesAttack();
+      console.log("Your input resulted in the 'fools attack' try lower case 's' or lower case 'f' ");
+      return foolsAttack;
   }
 }
 
