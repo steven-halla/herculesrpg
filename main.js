@@ -6,10 +6,10 @@ welcomeAlert();
 
 const swordSlash = {
   name: "Sword Slash",
-  damage: 1
+  damage: 10
 };
 const falcoPunch = {
-  name: "Sword Slash",
+  name: "Falco Punch",
   damage: 3
 };
 const hydraHeadSmash = {
@@ -21,13 +21,20 @@ const hydraFireBreath = {
   damage: 3
 };
 
+const lanceThrust = {
+  name: "Lance Thrust",
+  damage: 2
+};
+const divineFavor = {
+  name: "Divine Favor",
+  damage: 3
+};
+
 function getTotalDamage(hero, attack) {
   return hero.attackPower * attack.damage;
 }
 
-// function getLearnyTotalDamage(hydra, attack) {
-//   return laerny.attackPower * attack.damage;
-// }
+
 
 const hercules = {
   hp: 30,
@@ -39,12 +46,20 @@ const learny = {
   name: "Learny",
   hp: 30,
   attackPower: 5,
-  attacks: ["Head Smash", "Fire Breath"]
+  attacks: [hydraHeadSmash, hydraFireBreath]
 };
 
-const hydraDamage = {
-  "Head Smash": learny.attackPower * 2,
-  "Fire Breath": learny.attackPower * 3
+
+const thesus = {
+  name: "Thesus",
+  hp: 30,
+  attackPower: 5,
+  attacks: [lanceThrust, divineFavor]
+}
+
+const thesusDamage = {
+  "Lance Thrust": thesus.attackPower * 2,
+  "Divine Favor" : thesus.attackPower * 3
 }
 
 function getAttackFromCommand(input) {
@@ -68,41 +83,51 @@ function herculesAttack(enemy) {
   const damage = getTotalDamage(hercules, attack);
   enemy.hp -= damage;
 
-  console.log("Hercules used " + attack.name + " and dealt " + attack.damage + " damage.");
+  console.log("Hercules used " + attack.name + " and dealt " + damage + " damage.");
   console.log(enemy.name + " has " + enemy.hp + "hp.");
 }
 
-function getEnemyAttack(array) {
+function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   const item = array[randomIndex];
   return item;
 }
 
-function learnyAttack() {
-  let attackState = getEnemyAttack(learny.attacks);
-  console.log("Learny used " + attackState + " and dealt " + hydraDamage[attackState] + " damage.");
-  hercules.hp -= hydraDamage[attackState];
-  console.log("hercules has " + hercules.hp);
+function enemyAttack(enemy) {
+  const attack = getRandomItem(enemy.attacks);
+  const damage = getTotalDamage(enemy, attack);
+  hercules.hp -= damage;
+
+  console.log(enemy.name + " used " + attack.name + " and dealt " + damage + " damage.");
+  console.log("Hercules has " + hercules.hp + "hp.");
+
 }
 
-let isLearnyBattleOver = false;
-function learnyBattle() {
-  while (!isLearnyBattleOver) {
-    herculesAttack(learny);
 
-    learnyAttack(hercules);
 
-    if (hercules.hp <= 0 || learny.hp <= 0) {
-      learnyBattleOver();
+function battle(enemy) {
+  while (true) {
+
+    herculesAttack(enemy);
+
+    if (hercules.hp <= 0 || enemy.hp <= 0) {
+      battleOver();
+      return;
+    }
+
+    enemyAttack(enemy);
+
+    if (hercules.hp <= 0 || enemy.hp <= 0) {
+      battleOver();
+      return;
     }
   }
 }
 
-learnyBattle();
+battle(thesus);
 
-function learnyBattleOver() {
+function battleOver() {
   console.log("You escaped the battle loop");
-  isLearnyBattleOver = true;
 }
 
 console.log("game on");
@@ -113,3 +138,9 @@ function thesusAlert() {
 }
 
 thesusAlert();
+
+function thesusAttack() {
+  let attackState = getEnemyAttack(thesus.attacks);
+  console.log("Thesus used " + attackState + " and dealt " + thesusDamage[attackState] + " damage ");
+  hercules.hp -= thesus
+}
