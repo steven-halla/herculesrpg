@@ -43,9 +43,7 @@ const skullThrow = {
 
 function getTotalDamage(hero, attack) {
   return hero.attackPower * attack.damage;
-};
-
-
+}
 
 const hercules = {
   hp: 200,
@@ -112,21 +110,16 @@ function enemyAttack(enemy) {
 
   console.log(enemy.name + " used " + attack.name + " and dealt " + damage + " damage.");
   console.log("Hercules has " + hercules.hp + "hp.");
-
 }
 
 function battle(enemy) {
   while (true) {
-
     herculesAttack(enemy);
-
     if (hercules.hp <= 0 || enemy.hp <= 0) {
       battleOver();
       return;
     }
-
     enemyAttack(enemy);
-
     if (hercules.hp <= 0 || enemy.hp <= 0) {
       gameOver();
       return;
@@ -144,8 +137,6 @@ function battleOver() {
   console.log("You won the battle!");
 }
 
-
-
 function welcomeAlert() {
   alert("Time for some training. Follow the instructions and use lower case for all commands.");
 }
@@ -157,7 +148,6 @@ function deadAlert() {
 function learnyAlert() {
   alert("The Hydra, named 'learny' bars your way.Time to teach him a lesson");
 }
-
 
 function thesusAlert() {
   alert("Brave hero, it's time to face your next foe, the mighty hero Thesus.");
@@ -175,6 +165,7 @@ function hadesAlert() {
   hadesAlert();
   battle(hades);
   console.log("Congrats on escaping Hades. Now it's time for more adventures!")
+
 }
 
 
